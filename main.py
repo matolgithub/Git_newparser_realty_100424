@@ -24,10 +24,16 @@ def write_file():
 
 
 def main():
-    pass
+    num = 1
+    html_text = test_requests()
+    soup = BeautifulSoup(html_text, "html.parser")
+    all_title = soup.find_all("a", class_="search-item__title-link search-item__item-link")
+    for item in all_title:
+        print(num, item.text)
+        num += 1
 
 
 if __name__ == "__main__":
     # test_requests()
-    write_file()
+    # write_file()
     main()
