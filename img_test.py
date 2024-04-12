@@ -1,5 +1,19 @@
 from PIL import Image
 
-img = Image.open('https://static-i6.move.ru/images/items/1000626493/6871243119/450x338/nd_61f1443c8151d.jpeg')
 
-img.show()
+def watermark_photo(input_image_path,
+                    output_image_path,
+                    watermark_image_path,
+                    position):
+    base_image = Image.open(input_image_path)
+    watermark = Image.open(watermark_image_path)
+
+    # add watermark to your image
+    base_image.paste(watermark, position)
+    base_image.show()
+    base_image.save(output_image_path)
+
+
+if __name__ == '__main__':
+    img = 'sample.jpg'
+    watermark_photo(img, 'sample2.jpg', 'watermark.png', position=(0, 0))
