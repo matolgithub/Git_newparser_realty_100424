@@ -112,11 +112,11 @@ def get_id_dict():
         "Length": "",
         "Width": "",
         "Height": "",
-        "SEO title": "",
-        "SEO descr": "",
-        "SEO keywords": "",
-        "FB title": "",
-        "FB descr": "",
+        "SEO title": "квартиры в калуге",
+        "SEO descr": "купить квартиру, недвижимость в калуге",
+        "SEO keywords": "квартиры в калуге, купить квартиру в калуге, квартиры в калуге вторичка, купить квартиру в калуге недорого",
+        "FB title": "квартиры в калуге",
+        "FB descr": "купить квартиру, недвижимость в калуге",
         "Url": ""
     }
 
@@ -126,7 +126,7 @@ def get_id_dict():
 def main():
     result_dict = {}
     # pages = page_count()   !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    pages = 10  # сократил пагинацию, потом убрать!
+    pages = 2  # сократил пагинацию, потом убрать!
     num = 1
     for page_number in range(1, pages + 1):
         html_text = make_response()
@@ -140,6 +140,17 @@ def main():
             id_dict["Tilda UID"] = f"KV-{num}"
             title = data_id.find("a", class_="search-item__title-link search-item__item-link").text
             id_dict["Title"] = title
+            price = data_id.find("div", class_="search-item__price-values").text
+            id_dict["Price"] = price.strip()
+            img_list = []
+            img = data_id.find_all("div", class_="brazzers-photo-wrap")
+            for img_item in img:
+                image = img_item.get("data-src")
+                if image != None:
+                    if image[:6] != "https:":
+                        image = f"https:{image}"
+                    img_list.append(image)
+            id_dict["Photo"] = img_list
             # print(num, data_id["data-id"], title)
             result_dict[data_id["data-id"]] = id_dict
             num += 1
