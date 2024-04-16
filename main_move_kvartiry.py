@@ -140,6 +140,18 @@ def main():
             id_dict["Tilda UID"] = f"KV-{num}"
             title = data_id.find("a", class_="search-item__title-link search-item__item-link").text
             id_dict["Title"] = title
+            description = data_id.find("span", class_="black-text").text
+            id_dict["Description"] = description.strip()
+            city = data_id.find("li", class_="search-item__item-property search-item__location").text
+            id_dict["Characteristics: Город"] = city.strip()
+            etazh = (data_id.find_all("li", class_="search-item__item-property"))[1].text
+            id_dict["Characteristics: Этаж"] = etazh.strip()
+            square = (data_id.find_all("li", class_="search-item__item-property"))[2].text
+            id_dict["Characteristics: Общая площадь"] = square.strip()
+            rooms = (data_id.find_all("li", class_="search-item__item-property"))[3].text
+            id_dict["Characteristics: rooms_count"] = rooms.strip()
+            category = f"{(rooms.strip())[-1]}-комнатная квартира"
+            id_dict["Category"] = category
             price = data_id.find("div", class_="search-item__price-values").text
             id_dict["Price"] = price.strip()
             img_list = []
